@@ -1,0 +1,174 @@
+{
+  "artifactId" : "shadow-mirror",
+  "generatedAt" : "2026-09-27T01:32:52.531556455Z",
+  "testCaseCount" : 14,
+  "testCases" : [ {
+    "category" : "Positive",
+    "name" : "[POSITIVE] POST /shadows",
+    "description" : "Happy path: valid request should return 202",
+    "request" : {
+      "method" : "POST",
+      "url" : "{{baseUrl}}/shadows",
+      "path" : [ "shadows" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 202\", function() { if(pm.response.code !== 202) throw new Error(\"Expected 202 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Positive",
+    "name" : "[POSITIVE] GET /shadows/{shadowId}",
+    "description" : "Happy path: valid request should return 200",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}",
+      "path" : [ "shadows", "{shadowId}" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 200\", function() { if(pm.response.code !== 200) throw new Error(\"Expected 200 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Positive",
+    "name" : "[POSITIVE] GET /shadows/{shadowId}/report",
+    "description" : "Happy path: valid request should return 200",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/report",
+      "path" : [ "shadows", "{shadowId}", "report" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 200\", function() { if(pm.response.code !== 200) throw new Error(\"Expected 200 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Positive",
+    "name" : "[POSITIVE] POST /shadows/{shadowId}/stop",
+    "description" : "Happy path: valid request should return 200",
+    "request" : {
+      "method" : "POST",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/stop",
+      "path" : [ "shadows", "{shadowId}", "stop" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 200\", function() { if(pm.response.code !== 200) throw new Error(\"Expected 200 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Negative",
+    "name" : "[NEGATIVE] GET /shadows/{shadowId}",
+    "description" : "Missing required path parameter: shadowId",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}",
+      "path" : [ "shadows", "{shadowId}" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 400\", function() { if(pm.response.code !== 400) throw new Error(\"Expected 400 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Negative",
+    "name" : "[NEGATIVE] GET /shadows/{shadowId}",
+    "description" : "Invalid type for parameter shadowId (expected string)",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}",
+      "path" : [ "shadows", "{shadowId}" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 400\", function() { if(pm.response.code !== 400) throw new Error(\"Expected 400 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Negative",
+    "name" : "[NEGATIVE] GET /shadows/{shadowId}/report",
+    "description" : "Missing required path parameter: shadowId",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/report",
+      "path" : [ "shadows", "{shadowId}", "report" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 400\", function() { if(pm.response.code !== 400) throw new Error(\"Expected 400 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Negative",
+    "name" : "[NEGATIVE] GET /shadows/{shadowId}/report",
+    "description" : "Invalid type for parameter shadowId (expected string)",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/report",
+      "path" : [ "shadows", "{shadowId}", "report" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 400\", function() { if(pm.response.code !== 400) throw new Error(\"Expected 400 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Negative",
+    "name" : "[NEGATIVE] POST /shadows/{shadowId}/stop",
+    "description" : "Missing required path parameter: shadowId",
+    "request" : {
+      "method" : "POST",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/stop",
+      "path" : [ "shadows", "{shadowId}", "stop" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 400\", function() { if(pm.response.code !== 400) throw new Error(\"Expected 400 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Negative",
+    "name" : "[NEGATIVE] POST /shadows/{shadowId}/stop",
+    "description" : "Invalid type for parameter shadowId (expected string)",
+    "request" : {
+      "method" : "POST",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/stop",
+      "path" : [ "shadows", "{shadowId}", "stop" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Status code is 400\", function() { if(pm.response.code !== 400) throw new Error(\"Expected 400 but got \" + pm.response.code); });" ]
+  }, {
+    "category" : "Performance",
+    "name" : "[PERFORMANCE] POST /shadows",
+    "description" : "Performance: response time should be < 2000ms",
+    "request" : {
+      "method" : "POST",
+      "url" : "{{baseUrl}}/shadows",
+      "path" : [ "shadows" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Response time < 2000 ms\", function() { if(pm.response.responseTime > 2000) throw new Error(\"Response time \" + pm.response.responseTime + \"ms exceeds 2000ms\"); });" ]
+  }, {
+    "category" : "Performance",
+    "name" : "[PERFORMANCE] GET /shadows/{shadowId}",
+    "description" : "Performance: response time should be < 2000ms",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}",
+      "path" : [ "shadows", "{shadowId}" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Response time < 2000 ms\", function() { if(pm.response.responseTime > 2000) throw new Error(\"Response time \" + pm.response.responseTime + \"ms exceeds 2000ms\"); });" ]
+  }, {
+    "category" : "Performance",
+    "name" : "[PERFORMANCE] GET /shadows/{shadowId}/report",
+    "description" : "Performance: response time should be < 2000ms",
+    "request" : {
+      "method" : "GET",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/report",
+      "path" : [ "shadows", "{shadowId}", "report" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Response time < 2000 ms\", function() { if(pm.response.responseTime > 2000) throw new Error(\"Response time \" + pm.response.responseTime + \"ms exceeds 2000ms\"); });" ]
+  }, {
+    "category" : "Performance",
+    "name" : "[PERFORMANCE] POST /shadows/{shadowId}/stop",
+    "description" : "Performance: response time should be < 2000ms",
+    "request" : {
+      "method" : "POST",
+      "url" : "{{baseUrl}}/shadows/{shadowId}/stop",
+      "path" : [ "shadows", "{shadowId}", "stop" ],
+      "headers" : { },
+      "body" : null
+    },
+    "assertions" : [ "pm.test(\"Response time < 2000 ms\", function() { if(pm.response.responseTime > 2000) throw new Error(\"Response time \" + pm.response.responseTime + \"ms exceeds 2000ms\"); });" ]
+  } ]
+}
