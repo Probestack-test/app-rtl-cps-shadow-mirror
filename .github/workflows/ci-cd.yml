@@ -1,0 +1,110 @@
+name: CI/CD - shadow-mirror Deploy to Google Cloud Run
+
+on:
+  push:
+    branches:
+      - 'feature-adarsha'
+      - 'release'
+
+env:
+  PROJECT_ID: probestack-prod
+  SERVICE_ACCOUNT_EMAIL: github-actions-forgecrux@probestack-prod.iam.gserviceaccount.com
+  SERVICE_NAME: shadow-mirror
+  REGION: us-central1
+  ARTIFACT_REGISTRY_HOST: us-central1-docker.pkg.dev
+  ARTIFACT_REGISTRY_REPOSITORY: probestack-prod/probestack-prod-apps
+  JAVA_VERSION: '21'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn clean compile -B
+
+      - name: Run tests
+        run: mvn test -B
+        continue-on-error: true
+
+      - name: Package application
+        run: mvn package -DskipTests -B
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/861433193200/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+          service_account: ${{ env.SERVICE_ACCOUNT_EMAIL }}
+          token_format: access_token
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ env.ARTIFACT_REGISTRY_HOST }} --quiet
+
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          IMAGE_NAME=${{ env.ARTIFACT_REGISTRY_HOST }}/${{ env.ARTIFACT_REGISTRY_REPOSITORY }}/${{ env.SERVICE_NAME }}
+
+          docker build -t ${IMAGE_NAME}:${IMAGE_TAG} .
+          docker push ${IMAGE_NAME}:${IMAGE_TAG}
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy ${{ env.SERVICE_NAME }} \
+            --image=${{ env.ARTIFACT_REGISTRY_HOST }}/${{ env.ARTIFACT_REGISTRY_REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }} \
+            --platform=managed \
+            --region=${{ env.REGION }} \
+            --allow-unauthenticated \
+            --port=8080 \
+            --memory=512Mi \
+            --cpu=1 \
+            --min-instances=1 \
+            --max-instances=1 \
+            --timeout=300 \
+            --concurrency=80 \
+            --set-env-vars="SPRING_PROFILES_ACTIVE=cloud,SPRING_CLOUD_GCP_PROJECT_ID=${{ env.PROJECT_ID }}" \
+            --quiet
+
+      - name: Get Service URL
+        run: |
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format='value(status.url)')
+          echo "Service: ${{ env.SERVICE_NAME }}"
+          echo "URL: ${SERVICE_URL}"
+
+      - name: Health Check
+        run: |
+          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
+            --region=${{ env.REGION }} \
+            --format='value(status.url)')
+          sleep 10
+          curl -f ${SERVICE_URL}/actuator/health || exit 1

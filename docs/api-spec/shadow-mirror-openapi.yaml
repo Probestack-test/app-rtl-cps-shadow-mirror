@@ -1,0 +1,727 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: shadow@forgesphere.example.com
+    name: ForgeSphere Deployment Reliability
+  description: "Production traffic shadowing platform for the ForgeSphere ecosystem.\n\
+    Mirrors real user requests to a shadow deployment (new version) while \nreal responses\
+    \ continue to come from the stable version. Zero user impact, \nreal-world validation.\n\
+    \nShadow Mirror captures every request/response pair, compares the shadow \nresponses\
+    \ against production, and reports behavioral differences, \nperformance deltas,\
+    \ and regressions BEFORE the new version ever \nreceives real traffic.\n"
+  title: Shadow Mirror
+  version: 1.0.0
+servers:
+- description: Production Server
+  url: https://shadow.forgesphere.lightning.com/v1
+- description: Local Development Server
+  url: http://localhost:8107/v1
+security:
+- bearerAuth: []
+tags:
+- description: "Start, monitor, and analyze shadow traffic sessions."
+  name: Shadows
+paths:
+  /shadows:
+    post:
+      description: "Begins mirroring a percentage of production traffic to a shadow\
+        \ \ndeployment. Real users continue to receive responses from the baseline.\
+        \ \nShadow responses are recorded but never returned to users.\n\nIdeal before\
+        \ running a canary — validate behavior with real traffic \nat zero risk.\n"
+      operationId: startShadowSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/startShadowSession_request"
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShadowSession"
+          description: Shadow session accepted and starting.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Invalid payload or missing required fields.
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: A shadow session is already running for this service.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Traffic mirroring sidecar or metrics backend unavailable.
+      summary: Start a new shadow traffic session
+      tags:
+      - Shadows
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Shadows
+  /shadows/{shadowId}:
+    get:
+      description: "Returns real-time comparison data — how many requests mirrored,\
+        \ \nhow many mismatched, latency deltas, and error patterns. \nSafe to poll\
+        \ every 15 seconds for a live dashboard.\n"
+      operationId: getShadowStatus
+      parameters:
+      - explode: false
+        in: path
+        name: shadowId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShadowSession"
+          description: Live shadow session status.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Shadow session ID not found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Traffic mirroring sidecar or metrics backend unavailable.
+      summary: Get live status and metrics of a shadow session
+      tags:
+      - Shadows
+      x-accepts: application/json
+      x-tags:
+      - tag: Shadows
+  /shadows/{shadowId}/report:
+    get:
+      description: "Returns the complete behavioral diff report — every mismatch \n\
+        grouped by endpoint, HTTP method, status code, and difference type. \nIncludes\
+        \ AI-generated explanation of likely causes and severity.\n"
+      operationId: getShadowReport
+      parameters:
+      - explode: false
+        in: path
+        name: shadowId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: "If true, only return mismatched requests."
+        explode: true
+        in: query
+        name: onlyMismatches
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - description: Only return mismatches at or above this severity.
+        explode: true
+        in: query
+        name: minSeverity
+        required: false
+        schema:
+          default: INFO
+          enum:
+          - INFO
+          - WARNING
+          - CRITICAL
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShadowReport"
+          description: Detailed shadow comparison report.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Shadow session ID not found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Traffic mirroring sidecar or metrics backend unavailable.
+      summary: Fetch detailed shadow vs baseline comparison report
+      tags:
+      - Shadows
+      x-accepts: application/json
+      x-tags:
+      - tag: Shadows
+  /shadows/{shadowId}/stop:
+    post:
+      description: "Immediately stops mirroring traffic to the shadow deployment.\
+        \ \nThe report remains available for the retention period. Use this \nwhen\
+        \ you have sufficient data or want to abort a problematic session.\n"
+      operationId: stopShadowSession
+      parameters:
+      - explode: false
+        in: path
+        name: shadowId
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/stopShadowSession_request"
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShadowSession"
+          description: Shadow session stopped and report ready.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Invalid payload or missing required fields.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Shadow session ID not found.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Traffic mirroring sidecar or metrics backend unavailable.
+      summary: Stop a shadow session and detach mirror
+      tags:
+      - Shadows
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Shadows
+components:
+  responses:
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+      description: Invalid payload or missing required fields.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+      description: Shadow session ID not found.
+    InternalError:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+      description: Traffic mirroring sidecar or metrics backend unavailable.
+  schemas:
+    ShadowSession:
+      example:
+        mirrorPercent: 10
+        scheduledEndAt: 2000-01-23T04:56:07.000+00:00
+        errorMessage: errorMessage
+        startedAt: 2000-01-23T04:56:07.000+00:00
+        serviceName: payment-processor
+        shadowId: 9c8f1a3b-6d7e-4a12-8f5e-123456789abc
+        environment: PRODUCTION
+        baselineVersion: v2.4.1
+        endedAt: 2000-01-23T04:56:07.000+00:00
+        liveMetrics:
+          requestsMirrored: 128450
+          baselineErrorRatePct: 0.38
+          latencyDeltaPct: 6.5
+          baselineP99LatencyMs: 230
+          shadowErrorRatePct: 0.42
+          mismatchRatePct: 0.27
+          shadowP99LatencyMs: 245
+          requestsMismatched: 342
+        preliminaryVerdict: SAFE_TO_PROCEED
+        progressPercent: 45
+        shadowVersion: v2.5.0
+        status: MIRRORING
+      properties:
+        shadowId:
+          example: 9c8f1a3b-6d7e-4a12-8f5e-123456789abc
+          format: uuid
+          type: string
+        serviceName:
+          example: payment-processor
+          type: string
+        environment:
+          enum:
+          - STAGING
+          - PRODUCTION
+          example: PRODUCTION
+          type: string
+        shadowVersion:
+          example: v2.5.0
+          type: string
+        baselineVersion:
+          example: v2.4.1
+          type: string
+        mirrorPercent:
+          example: 10
+          type: number
+        status:
+          enum:
+          - QUEUED
+          - ATTACHING
+          - MIRRORING
+          - ANALYZING
+          - COMPLETED
+          - STOPPED
+          - FAILED
+          example: MIRRORING
+          type: string
+        startedAt:
+          format: date-time
+          type: string
+        scheduledEndAt:
+          format: date-time
+          type: string
+        endedAt:
+          format: date-time
+          type: string
+        progressPercent:
+          example: 45
+          maximum: 100
+          minimum: 0
+          type: integer
+        liveMetrics:
+          $ref: "#/components/schemas/ShadowSession_liveMetrics"
+        preliminaryVerdict:
+          description: Current recommendation based on live data.
+          enum:
+          - SAFE_TO_PROCEED
+          - REVIEW_NEEDED
+          - DO_NOT_PROCEED
+          - PENDING
+          example: SAFE_TO_PROCEED
+          type: string
+        errorMessage:
+          description: Populated only if status = FAILED.
+          type: string
+      required:
+      - baselineVersion
+      - mirrorPercent
+      - serviceName
+      - shadowId
+      - shadowVersion
+      - startedAt
+      - status
+      type: object
+    ShadowReport:
+      example:
+        summary:
+          criticalMismatches: 3
+          totalRequestsMirrored: 428500
+          uniqueEndpointsAffected: 7
+          mismatchRatePct: 0.28
+          warningMismatches: 42
+          totalMismatches: 1204
+          infoMismatches: 1159
+        mismatches:
+        - severity: CRITICAL
+          sampleCount: 42
+          recommendedAction: Add null-safety check in DiscountService OR send campaignId
+            header.
+          path: /api/v1/charge
+          differenceType: STATUS_CODE_CHANGED
+          method: POST
+          mismatchId: b1a2c3d4-e5f6-7890-1234-567890abcdef
+          probableCause: Null discount_code when request lacks campaignId header;
+            NPE in DiscountService.apply().
+          baselineResponse:
+            bodyPreview: "{\"status\":\"approved\",\"txnId\":\"abc123\"}"
+            statusCode: 200
+          shadowResponse:
+            bodyPreview: "{\"error\":\"NullPointerException in DiscountService\"}"
+            statusCode: 500
+          firstSeenAt: 2000-01-23T04:56:07.000+00:00
+        - severity: CRITICAL
+          sampleCount: 42
+          recommendedAction: Add null-safety check in DiscountService OR send campaignId
+            header.
+          path: /api/v1/charge
+          differenceType: STATUS_CODE_CHANGED
+          method: POST
+          mismatchId: b1a2c3d4-e5f6-7890-1234-567890abcdef
+          probableCause: Null discount_code when request lacks campaignId header;
+            NPE in DiscountService.apply().
+          baselineResponse:
+            bodyPreview: "{\"status\":\"approved\",\"txnId\":\"abc123\"}"
+            statusCode: 200
+          shadowResponse:
+            bodyPreview: "{\"error\":\"NullPointerException in DiscountService\"}"
+            statusCode: 500
+          firstSeenAt: 2000-01-23T04:56:07.000+00:00
+        shadowId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        verdict: REVIEW_NEEDED
+        confidence: 0.89
+        generatedAt: 2000-01-23T04:56:07.000+00:00
+        regressionRisks:
+        - Discount calculation returns NPE for 42 requests without campaignId.
+        - Response payload for /refund missing 'refundId' field on 12% of samples.
+      properties:
+        shadowId:
+          format: uuid
+          type: string
+        verdict:
+          description: Final recommendation.
+          enum:
+          - SAFE_TO_PROCEED
+          - REVIEW_NEEDED
+          - DO_NOT_PROCEED
+          example: REVIEW_NEEDED
+          type: string
+        confidence:
+          example: 0.89
+          maximum: 1
+          minimum: 0
+          type: number
+        generatedAt:
+          format: date-time
+          type: string
+        summary:
+          $ref: "#/components/schemas/ShadowReport_summary"
+        mismatches:
+          description: "Detailed mismatch list, sorted by severity."
+          items:
+            $ref: "#/components/schemas/ShadowReport_mismatches_inner"
+          type: array
+        regressionRisks:
+          description: Potential regressions to fix before promotion.
+          example:
+          - Discount calculation returns NPE for 42 requests without campaignId.
+          - Response payload for /refund missing 'refundId' field on 12% of samples.
+          items:
+            type: string
+          type: array
+      required:
+      - generatedAt
+      - mismatches
+      - shadowId
+      - summary
+      - verdict
+      type: object
+    ErrorResponse:
+      properties:
+        status:
+          example: 409
+          type: integer
+        errorCode:
+          example: SHADOW_ALREADY_RUNNING
+          type: string
+        message:
+          example: A shadow session is already running for payment-processor.
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        path:
+          example: /v1/shadows
+          type: string
+      required:
+      - message
+      - path
+      - status
+      - timestamp
+      type: object
+    startShadowSession_request:
+      properties:
+        serviceName:
+          example: payment-processor
+          type: string
+        environment:
+          enum:
+          - STAGING
+          - PRODUCTION
+          example: PRODUCTION
+          type: string
+        shadowVersion:
+          description: Version to receive mirrored traffic.
+          example: v2.5.0
+          type: string
+        baselineVersion:
+          description: Version serving real users.
+          example: v2.4.1
+          type: string
+        mirrorPercent:
+          description: Percentage of traffic to mirror to shadow.
+          example: 10
+          maximum: 100
+          minimum: 1
+          type: number
+        durationMinutes:
+          default: 30
+          example: 30
+          maximum: 240
+          minimum: 5
+          type: integer
+        samplePaths:
+          description: "Optional allowlist of URL patterns to mirror. If empty, mirrors\
+            \ all."
+          example:
+          - /api/v1/charge
+          - /api/v1/refund
+          items:
+            type: string
+          type: array
+        excludePaths:
+          description: "URL patterns to never mirror (e.g., /login)."
+          example:
+          - /api/v1/admin/*
+          - /actuator/*
+          items:
+            type: string
+          type: array
+        compareMode:
+          default: STATUS_AND_BODY
+          description: How strictly to compare shadow vs baseline responses.
+          enum:
+          - STATUS_CODE_ONLY
+          - STATUS_AND_BODY
+          - FULL_STRUCTURAL
+          - JSON_DEEP_EQUAL
+          example: JSON_DEEP_EQUAL
+          type: string
+        redactPii:
+          default: true
+          description: Whether to redact PII from captured traffic.
+          example: true
+          type: boolean
+      required:
+      - baselineVersion
+      - environment
+      - mirrorPercent
+      - serviceName
+      - shadowVersion
+      type: object
+    stopShadowSession_request:
+      properties:
+        reason:
+          description: Optional reason for stopping (for audit).
+          example: Sufficient samples collected; ready to review report.
+          type: string
+        generateReport:
+          default: true
+          description: Whether to generate a final report.
+          example: true
+          type: boolean
+      type: object
+    ShadowSession_liveMetrics:
+      description: Real-time mirror statistics.
+      example:
+        requestsMirrored: 128450
+        baselineErrorRatePct: 0.38
+        latencyDeltaPct: 6.5
+        baselineP99LatencyMs: 230
+        shadowErrorRatePct: 0.42
+        mismatchRatePct: 0.27
+        shadowP99LatencyMs: 245
+        requestsMismatched: 342
+      properties:
+        requestsMirrored:
+          example: 128450
+          type: integer
+        requestsMismatched:
+          example: 342
+          type: integer
+        mismatchRatePct:
+          example: 0.27
+          format: double
+          type: number
+        shadowErrorRatePct:
+          example: 0.42
+          format: double
+          type: number
+        baselineErrorRatePct:
+          example: 0.38
+          format: double
+          type: number
+        shadowP99LatencyMs:
+          example: 245
+          type: integer
+        baselineP99LatencyMs:
+          example: 230
+          type: integer
+        latencyDeltaPct:
+          example: 6.5
+          format: double
+          type: number
+      type: object
+    ShadowReport_summary:
+      example:
+        criticalMismatches: 3
+        totalRequestsMirrored: 428500
+        uniqueEndpointsAffected: 7
+        mismatchRatePct: 0.28
+        warningMismatches: 42
+        totalMismatches: 1204
+        infoMismatches: 1159
+      properties:
+        totalRequestsMirrored:
+          example: 428500
+          type: integer
+        totalMismatches:
+          example: 1204
+          type: integer
+        mismatchRatePct:
+          example: 0.28
+          format: double
+          type: number
+        uniqueEndpointsAffected:
+          example: 7
+          type: integer
+        criticalMismatches:
+          example: 3
+          type: integer
+        warningMismatches:
+          example: 42
+          type: integer
+        infoMismatches:
+          example: 1159
+          type: integer
+      required:
+      - totalMismatches
+      - totalRequestsMirrored
+      - uniqueEndpointsAffected
+      type: object
+    ShadowReport_mismatches_inner_baselineResponse:
+      example:
+        bodyPreview: "{\"status\":\"approved\",\"txnId\":\"abc123\"}"
+        statusCode: 200
+      properties:
+        statusCode:
+          example: 200
+          type: integer
+        bodyPreview:
+          example: "{\"status\":\"approved\",\"txnId\":\"abc123\"}"
+          type: string
+      type: object
+    ShadowReport_mismatches_inner_shadowResponse:
+      example:
+        bodyPreview: "{\"error\":\"NullPointerException in DiscountService\"}"
+        statusCode: 500
+      properties:
+        statusCode:
+          example: 500
+          type: integer
+        bodyPreview:
+          example: "{\"error\":\"NullPointerException in DiscountService\"}"
+          type: string
+      type: object
+    ShadowReport_mismatches_inner:
+      example:
+        severity: CRITICAL
+        sampleCount: 42
+        recommendedAction: Add null-safety check in DiscountService OR send campaignId
+          header.
+        path: /api/v1/charge
+        differenceType: STATUS_CODE_CHANGED
+        method: POST
+        mismatchId: b1a2c3d4-e5f6-7890-1234-567890abcdef
+        probableCause: Null discount_code when request lacks campaignId header; NPE
+          in DiscountService.apply().
+        baselineResponse:
+          bodyPreview: "{\"status\":\"approved\",\"txnId\":\"abc123\"}"
+          statusCode: 200
+        shadowResponse:
+          bodyPreview: "{\"error\":\"NullPointerException in DiscountService\"}"
+          statusCode: 500
+        firstSeenAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        mismatchId:
+          example: b1a2c3d4-e5f6-7890-1234-567890abcdef
+          format: uuid
+          type: string
+        method:
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          example: POST
+          type: string
+        path:
+          example: /api/v1/charge
+          type: string
+        severity:
+          enum:
+          - INFO
+          - WARNING
+          - CRITICAL
+          example: CRITICAL
+          type: string
+        differenceType:
+          enum:
+          - STATUS_CODE_CHANGED
+          - RESPONSE_BODY_DIFF
+          - FIELD_MISSING
+          - FIELD_EXTRA
+          - TYPE_CHANGED
+          - HEADER_CHANGED
+          - TIMING_ONLY
+          example: STATUS_CODE_CHANGED
+          type: string
+        baselineResponse:
+          $ref: "#/components/schemas/ShadowReport_mismatches_inner_baselineResponse"
+        shadowResponse:
+          $ref: "#/components/schemas/ShadowReport_mismatches_inner_shadowResponse"
+        sampleCount:
+          description: How many requests hit this mismatch.
+          example: 42
+          type: integer
+        firstSeenAt:
+          format: date-time
+          type: string
+        probableCause:
+          description: AI-generated hypothesis for the root cause.
+          example: Null discount_code when request lacks campaignId header; NPE in
+            DiscountService.apply().
+          type: string
+        recommendedAction:
+          example: Add null-safety check in DiscountService OR send campaignId header.
+          type: string
+      required:
+      - differenceType
+      - method
+      - mismatchId
+      - path
+      - severity
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      description: Deployment or SRE JWT.
+      scheme: bearer
+      type: http
