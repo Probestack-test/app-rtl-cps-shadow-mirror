@@ -218,6 +218,16 @@ app.logging.enabled=false
 ```
 
 
+## Generated Tests
+
+`mvn test` runs the generated suites. None of them needs a database or a running server.
+
+- **Unit tests** (`service/*Test`): service logic against a mocked repository.
+- **Integration tests** (`api/*IntegrationTest`): controller, service, validation and error handling together, through MockMvc.
+- **Persistence tests** (`persistence/**/*AdapterTest`): adapter mapping against a mocked Spring Data repository.
+
+Turn a suite off per generation request with `testOptions` (`unitTests`, `integrationTests`, `persistenceTests`); each defaults to `true`.
+
 ## Cloud Run Deployment
 This generated project includes GitHub Actions CI/CD for Google Cloud Run.
 

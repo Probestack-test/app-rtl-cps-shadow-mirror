@@ -1,6 +1,6 @@
 {
   "info" : {
-    "_postman_id" : "44a64835-aa76-4c0f-b91d-31f6a32da10f",
+    "_postman_id" : "3ed83d0f-9dd0-4de7-9e82-d4400c87275a",
     "name" : "Shadow Mirror",
     "description" : "Generated Postman collection for shadow-mirror",
     "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -410,7 +410,7 @@
           "value" : "application/json"
         } ],
         "cookie" : [ ],
-        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.526716894Z\",\n  \"status\" : 400,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T02:19:28.101718758Z\",\n  \"status\" : 400,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
       } ]
     }, {
       "name" : "Get live status and metrics of a shadow session",
@@ -480,7 +480,7 @@
           "value" : "application/json"
         } ],
         "cookie" : [ ],
-        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.527387777Z\",\n  \"status\" : 404,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T02:19:28.102566840Z\",\n  \"status\" : 404,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
       } ]
     }, {
       "name" : "Fetch detailed shadow vs baseline comparison report",
@@ -571,7 +571,7 @@
           "value" : "application/json"
         } ],
         "cookie" : [ ],
-        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.527919577Z\",\n  \"status\" : 404,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T02:19:28.103249740Z\",\n  \"status\" : 404,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
       } ]
     }, {
       "name" : "Stop a shadow session and detach mirror",
@@ -677,7 +677,7 @@
           "value" : "application/json"
         } ],
         "cookie" : [ ],
-        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.528199913Z\",\n  \"status\" : 400,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T02:19:28.103562125Z\",\n  \"status\" : 400,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
       } ]
     } ]
   } ]

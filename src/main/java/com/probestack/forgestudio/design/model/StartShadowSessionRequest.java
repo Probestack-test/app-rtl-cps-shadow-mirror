@@ -20,7 +20,7 @@ import jakarta.annotation.Generated;
  * StartShadowSessionRequest
  */
 @JsonTypeName("startShadowSession_request")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T01:32:49.939550536Z[GMT]")public class StartShadowSessionRequest {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")public class StartShadowSessionRequest {
 
   private String serviceName;
 
