@@ -1,0 +1,98 @@
+{
+  "artifactId" : "shadow-mirror",
+  "resourceId" : "6ab87142403e3c5dbdcfc96c",
+  "generatedAt" : "2026-09-27T01:32:52.330834217Z",
+  "mock" : {
+    "id" : "69a92ba2-a4f3-4ca6-bcf6-724b03d8d0f9",
+    "microserviceId" : null,
+    "specMetadataId" : "6ab871be3e03191c3944de32",
+    "apiSpecName" : "Shadow Mirror",
+    "name" : "mock-shadow-mirror",
+    "mockServiceName" : "mock-shadow-mirror",
+    "mockServerUrl" : "https://forgesphere.probestack.io/mock-api/v1/api/mocks/mock-645c326d",
+    "mockUrl" : "mock-645c326d",
+    "isPrivate" : false,
+    "delayMs" : 0,
+    "responseLatencyMs" : 0,
+    "requestCount" : 0,
+    "createdAt" : "2026-09-27T01:31:01.812Z",
+    "updatedAt" : "2026-09-27T01:31:01.827Z"
+  },
+  "endpoints" : [ {
+    "id" : "c4880a8d-e4b3-499c-850a-85745e929502",
+    "isActive" : true,
+    "request" : {
+      "method" : "POST",
+      "path" : "/shadows",
+      "bodySample" : "{\"serviceName\":\"payment-processor\",\"environment\":\"PRODUCTION\",\"shadowVersion\":\"v2.5.0\",\"baselineVersion\":\"v2.4.1\",\"mirrorPercent\":10,\"durationMinutes\":30,\"samplePaths\":[\"/api/v1/charge\",\"/api/v1/refund\"],\"excludePaths\":[\"/api/v1/admin/*\",\"/actuator/*\"],\"compareMode\":\"JSON_DEEP_EQUAL\",\"redactPii\":true}",
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true
+    },
+    "response" : {
+      "status" : 202,
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "body" : "{\"shadowId\":\"9c8f1a3b-6d7e-4a12-8f5e-123456789abc\",\"serviceName\":\"payment-processor\",\"environment\":\"PRODUCTION\",\"shadowVersion\":\"v2.5.0\",\"baselineVersion\":\"v2.4.1\",\"mirrorPercent\":10,\"status\":\"MIRRORING\",\"startedAt\":\"2024-01-01T00:00:00Z\",\"scheduledEndAt\":\"2024-01-01T00:00:00Z\",\"endedAt\":\"2024-01-01T00:00:00Z\",\"progressPercent\":45,\"liveMetrics\":{\"requestsMirrored\":128450,\"requestsMismatched\":342,\"mismatchRatePct\":0.27,\"shadowErrorRatePct\":0.42,\"baselineErrorRatePct\":0.38,\"shadowP99LatencyMs\":245,\"baselineP99LatencyMs\":230,\"latencyDeltaPct\":6.5},\"preliminaryVerdict\":\"SAFE_TO_PROCEED\",\"errorMessage\":\"string\"}",
+      "delayMs" : 0
+    }
+  }, {
+    "id" : "9d8cd5eb-abe0-430d-ac68-9946f4b9d91c",
+    "isActive" : true,
+    "request" : {
+      "method" : "GET",
+      "path" : "/shadows/{shadowId}",
+      "bodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true
+    },
+    "response" : {
+      "status" : 200,
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "body" : "{\"shadowId\":\"9c8f1a3b-6d7e-4a12-8f5e-123456789abc\",\"serviceName\":\"payment-processor\",\"environment\":\"PRODUCTION\",\"shadowVersion\":\"v2.5.0\",\"baselineVersion\":\"v2.4.1\",\"mirrorPercent\":10,\"status\":\"MIRRORING\",\"startedAt\":\"2024-01-01T00:00:00Z\",\"scheduledEndAt\":\"2024-01-01T00:00:00Z\",\"endedAt\":\"2024-01-01T00:00:00Z\",\"progressPercent\":45,\"liveMetrics\":{\"requestsMirrored\":128450,\"requestsMismatched\":342,\"mismatchRatePct\":0.27,\"shadowErrorRatePct\":0.42,\"baselineErrorRatePct\":0.38,\"shadowP99LatencyMs\":245,\"baselineP99LatencyMs\":230,\"latencyDeltaPct\":6.5},\"preliminaryVerdict\":\"SAFE_TO_PROCEED\",\"errorMessage\":\"string\"}",
+      "delayMs" : 0
+    }
+  }, {
+    "id" : "d71de09f-16b7-4a8b-a490-a4b75b0834ac",
+    "isActive" : true,
+    "request" : {
+      "method" : "GET",
+      "path" : "/shadows/{shadowId}/report",
+      "bodySample" : null,
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true
+    },
+    "response" : {
+      "status" : 200,
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "body" : "{\"shadowId\":\"00000000-0000-0000-0000-000000000000\",\"verdict\":\"REVIEW_NEEDED\",\"confidence\":0.89,\"generatedAt\":\"2024-01-01T00:00:00Z\",\"summary\":{\"totalRequestsMirrored\":428500,\"totalMismatches\":1204,\"mismatchRatePct\":0.28,\"uniqueEndpointsAffected\":7,\"criticalMismatches\":3,\"warningMismatches\":42,\"infoMismatches\":1159},\"mismatches\":[{\"mismatchId\":\"b1a2c3d4-e5f6-7890-1234-567890abcdef\",\"method\":\"POST\",\"path\":\"/api/v1/charge\",\"severity\":\"CRITICAL\",\"differenceType\":\"STATUS_CODE_CHANGED\",\"baselineResponse\":{\"statusCode\":200,\"bodyPreview\":\"{\\\"status\\\":\\\"approved\\\",\\\"txnId\\\":\\\"abc123\\\"}\"},\"shadowResponse\":{\"statusCode\":500,\"bodyPreview\":\"{\\\"error\\\":\\\"NullPointerException in DiscountService\\\"}\"},\"sampleCount\":42,\"firstSeenAt\":\"2024-01-01T00:00:00Z\",\"probableCause\":\"Null discount_code when request lacks campaignId header; NPE in DiscountService.apply().\",\"recommendedAction\":\"Add null-safety check in DiscountService OR send campaignId header.\"}],\"regressionRisks\":[\"Discount calculation returns NPE for 42 requests without campaignId.\",\"Response payload for /refund missing 'refundId' field on 12% of samples.\"]}",
+      "delayMs" : 0
+    }
+  }, {
+    "id" : "afdee7a1-a675-4550-ba2d-2c4d455985aa",
+    "isActive" : true,
+    "request" : {
+      "method" : "POST",
+      "path" : "/shadows/{shadowId}/stop",
+      "bodySample" : "{\"reason\":\"Sufficient samples collected; ready to review report.\",\"generateReport\":true}",
+      "validationMode" : "NONE",
+      "validationSchema" : null,
+      "validateMethod" : true
+    },
+    "response" : {
+      "status" : 200,
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "body" : "{\"shadowId\":\"9c8f1a3b-6d7e-4a12-8f5e-123456789abc\",\"serviceName\":\"payment-processor\",\"environment\":\"PRODUCTION\",\"shadowVersion\":\"v2.5.0\",\"baselineVersion\":\"v2.4.1\",\"mirrorPercent\":10,\"status\":\"MIRRORING\",\"startedAt\":\"2024-01-01T00:00:00Z\",\"scheduledEndAt\":\"2024-01-01T00:00:00Z\",\"endedAt\":\"2024-01-01T00:00:00Z\",\"progressPercent\":45,\"liveMetrics\":{\"requestsMirrored\":128450,\"requestsMismatched\":342,\"mismatchRatePct\":0.27,\"shadowErrorRatePct\":0.42,\"baselineErrorRatePct\":0.38,\"shadowP99LatencyMs\":245,\"baselineP99LatencyMs\":230,\"latencyDeltaPct\":6.5},\"preliminaryVerdict\":\"SAFE_TO_PROCEED\",\"errorMessage\":\"string\"}",
+      "delayMs" : 0
+    }
+  } ]
+}

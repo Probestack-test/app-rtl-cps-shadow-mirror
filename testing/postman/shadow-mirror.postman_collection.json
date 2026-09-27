@@ -1,0 +1,684 @@
+{
+  "info" : {
+    "_postman_id" : "44a64835-aa76-4c0f-b91d-31f6a32da10f",
+    "name" : "Shadow Mirror",
+    "description" : "Generated Postman collection for shadow-mirror",
+    "schema" : "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable" : [ {
+    "key" : "baseUrl",
+    "value" : "http://localhost:8080",
+    "type" : "string"
+  }, {
+    "key" : "bearerToken",
+    "value" : "",
+    "type" : "string"
+  }, {
+    "key" : "resourceId",
+    "value" : "sample-id",
+    "type" : "string"
+  }, {
+    "key" : "clientId",
+    "value" : "generated-service-client",
+    "type" : "string"
+  }, {
+    "key" : "clientSecret",
+    "value" : "change-me",
+    "type" : "string"
+  }, {
+    "key" : "scope",
+    "value" : "api.read api.write",
+    "type" : "string"
+  } ],
+  "item" : [ {
+    "name" : "Health",
+    "item" : [ {
+      "name" : "Health",
+      "request" : {
+        "auth" : {
+          "type" : "noauth"
+        },
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/actuator/health",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "actuator", "health" ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "auth" : {
+            "type" : "noauth"
+          },
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/actuator/health",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "actuator", "health" ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"status\" : \"UP\"\n}"
+      } ]
+    }, {
+      "name" : "Liveness",
+      "request" : {
+        "auth" : {
+          "type" : "noauth"
+        },
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/actuator/health/liveness",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "actuator", "health", "liveness" ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "auth" : {
+            "type" : "noauth"
+          },
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/actuator/health/liveness",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "actuator", "health", "liveness" ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"status\" : \"UP\"\n}"
+      } ]
+    }, {
+      "name" : "Readiness",
+      "request" : {
+        "auth" : {
+          "type" : "noauth"
+        },
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/actuator/health/readiness",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "actuator", "health", "readiness" ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "auth" : {
+            "type" : "noauth"
+          },
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/actuator/health/readiness",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "actuator", "health", "readiness" ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"status\" : \"UP\"\n}"
+      } ]
+    }, {
+      "name" : "Metrics",
+      "request" : {
+        "auth" : {
+          "type" : "noauth"
+        },
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/actuator/metrics",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "actuator", "metrics" ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "auth" : {
+            "type" : "noauth"
+          },
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/actuator/metrics",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "actuator", "metrics" ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"status\" : \"UP\"\n}"
+      } ]
+    }, {
+      "name" : "Prometheus",
+      "request" : {
+        "auth" : {
+          "type" : "noauth"
+        },
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/actuator/prometheus",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "actuator", "prometheus" ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "auth" : {
+            "type" : "noauth"
+          },
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/actuator/prometheus",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "actuator", "prometheus" ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"status\" : \"UP\"\n}"
+      } ]
+    } ]
+  }, {
+    "name" : "Security",
+    "item" : [ {
+      "name" : "Get OAuth2 Token",
+      "request" : {
+        "auth" : {
+          "type" : "basic",
+          "basic" : [ {
+            "key" : "username",
+            "value" : "{{clientId}}",
+            "type" : "string"
+          }, {
+            "key" : "password",
+            "value" : "{{clientSecret}}",
+            "type" : "string"
+          } ]
+        },
+        "method" : "POST",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/x-www-form-urlencoded"
+        }, {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "body" : {
+          "mode" : "urlencoded",
+          "urlencoded" : [ {
+            "key" : "grant_type",
+            "value" : "client_credentials",
+            "type" : "text"
+          }, {
+            "key" : "scope",
+            "value" : "{{scope}}",
+            "type" : "text"
+          } ]
+        },
+        "url" : {
+          "raw" : "{{baseUrl}}/oauth2/token",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "oauth2", "token" ]
+        }
+      },
+      "event" : [ {
+        "listen" : "test",
+        "script" : {
+          "type" : "text/javascript",
+          "exec" : [ "const json = pm.response.json();", "if (json.access_token) {", "  pm.collectionVariables.set(\"bearerToken\", json.access_token);", "}" ]
+        }
+      } ]
+    } ]
+  }, {
+    "name" : "Shadows",
+    "item" : [ {
+      "name" : "Start a new shadow traffic session",
+      "request" : {
+        "method" : "POST",
+        "header" : [ {
+          "key" : "Authorization",
+          "value" : "Bearer {{bearerToken}}"
+        }, {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        }, {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/shadows",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "shadows" ]
+        },
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\n  \"serviceName\" : \"payment-processor\",\n  \"environment\" : \"PRODUCTION\",\n  \"shadowVersion\" : \"v2.5.0\",\n  \"baselineVersion\" : \"v2.4.1\",\n  \"mirrorPercent\" : 10,\n  \"durationMinutes\" : 30,\n  \"samplePaths\" : [ \"/api/v1/charge\", \"/api/v1/refund\" ],\n  \"excludePaths\" : [ \"/api/v1/admin/*\", \"/actuator/*\" ],\n  \"compareMode\" : \"JSON_DEEP_EQUAL\",\n  \"redactPii\" : true\n}",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          }
+        }
+      },
+      "response" : [ {
+        "name" : "Accepted",
+        "originalRequest" : {
+          "method" : "POST",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Content-Type",
+            "value" : "application/json"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows" ]
+          },
+          "body" : {
+            "mode" : "raw",
+            "raw" : "{\n  \"serviceName\" : \"payment-processor\",\n  \"environment\" : \"PRODUCTION\",\n  \"shadowVersion\" : \"v2.5.0\",\n  \"baselineVersion\" : \"v2.4.1\",\n  \"mirrorPercent\" : 10,\n  \"durationMinutes\" : 30,\n  \"samplePaths\" : [ \"/api/v1/charge\", \"/api/v1/refund\" ],\n  \"excludePaths\" : [ \"/api/v1/admin/*\", \"/actuator/*\" ],\n  \"compareMode\" : \"JSON_DEEP_EQUAL\",\n  \"redactPii\" : true\n}",
+            "options" : {
+              "raw" : {
+                "language" : "json"
+              }
+            }
+          }
+        },
+        "status" : "Accepted",
+        "code" : 202,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"shadowId\" : \"9c8f1a3b-6d7e-4a12-8f5e-123456789abc\",\n  \"serviceName\" : \"payment-processor\",\n  \"environment\" : \"PRODUCTION\",\n  \"shadowVersion\" : \"v2.5.0\",\n  \"baselineVersion\" : \"v2.4.1\",\n  \"mirrorPercent\" : 10,\n  \"status\" : \"MIRRORING\",\n  \"startedAt\" : 948603367000,\n  \"scheduledEndAt\" : 948603367000,\n  \"endedAt\" : 948603367000,\n  \"progressPercent\" : 45,\n  \"liveMetrics\" : {\n    \"requestsMirrored\" : 128450,\n    \"baselineErrorRatePct\" : 0.38,\n    \"latencyDeltaPct\" : 6.5,\n    \"baselineP99LatencyMs\" : 230,\n    \"shadowErrorRatePct\" : 0.42,\n    \"mismatchRatePct\" : 0.27,\n    \"shadowP99LatencyMs\" : 245,\n    \"requestsMismatched\" : 342\n  },\n  \"preliminaryVerdict\" : \"SAFE_TO_PROCEED\",\n  \"errorMessage\" : \"errorMessage\"\n}"
+      }, {
+        "name" : "Bad Request",
+        "originalRequest" : {
+          "method" : "POST",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Content-Type",
+            "value" : "application/json"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows" ]
+          },
+          "body" : {
+            "mode" : "raw",
+            "raw" : "{\n  \"serviceName\" : \"payment-processor\",\n  \"environment\" : \"PRODUCTION\",\n  \"shadowVersion\" : \"v2.5.0\",\n  \"baselineVersion\" : \"v2.4.1\",\n  \"mirrorPercent\" : 10,\n  \"durationMinutes\" : 30,\n  \"samplePaths\" : [ \"/api/v1/charge\", \"/api/v1/refund\" ],\n  \"excludePaths\" : [ \"/api/v1/admin/*\", \"/actuator/*\" ],\n  \"compareMode\" : \"JSON_DEEP_EQUAL\",\n  \"redactPii\" : true\n}",
+            "options" : {
+              "raw" : {
+                "language" : "json"
+              }
+            }
+          }
+        },
+        "status" : "Bad Request",
+        "code" : 400,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.526716894Z\",\n  \"status\" : 400,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+      } ]
+    }, {
+      "name" : "Get live status and metrics of a shadow session",
+      "request" : {
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Authorization",
+          "value" : "Bearer {{bearerToken}}"
+        }, {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/shadows/sample-id",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "shadows", "sample-id" ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows/sample-id",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows", "sample-id" ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"shadowId\" : \"9c8f1a3b-6d7e-4a12-8f5e-123456789abc\",\n  \"serviceName\" : \"payment-processor\",\n  \"environment\" : \"PRODUCTION\",\n  \"shadowVersion\" : \"v2.5.0\",\n  \"baselineVersion\" : \"v2.4.1\",\n  \"mirrorPercent\" : 10,\n  \"status\" : \"MIRRORING\",\n  \"startedAt\" : 948603367000,\n  \"scheduledEndAt\" : 948603367000,\n  \"endedAt\" : 948603367000,\n  \"progressPercent\" : 45,\n  \"liveMetrics\" : {\n    \"requestsMirrored\" : 128450,\n    \"baselineErrorRatePct\" : 0.38,\n    \"latencyDeltaPct\" : 6.5,\n    \"baselineP99LatencyMs\" : 230,\n    \"shadowErrorRatePct\" : 0.42,\n    \"mismatchRatePct\" : 0.27,\n    \"shadowP99LatencyMs\" : 245,\n    \"requestsMismatched\" : 342\n  },\n  \"preliminaryVerdict\" : \"SAFE_TO_PROCEED\",\n  \"errorMessage\" : \"errorMessage\"\n}"
+      }, {
+        "name" : "Not Found",
+        "originalRequest" : {
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows/sample-id",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows", "sample-id" ]
+          }
+        },
+        "status" : "Not Found",
+        "code" : 404,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.527387777Z\",\n  \"status\" : 404,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+      } ]
+    }, {
+      "name" : "Fetch detailed shadow vs baseline comparison report",
+      "request" : {
+        "method" : "GET",
+        "header" : [ {
+          "key" : "Authorization",
+          "value" : "Bearer {{bearerToken}}"
+        }, {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/shadows/sample-id/report?onlyMismatches=true&minSeverity=INFO",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "shadows", "sample-id", "report" ],
+          "query" : [ {
+            "key" : "onlyMismatches",
+            "value" : true
+          }, {
+            "key" : "minSeverity",
+            "value" : "INFO"
+          } ]
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows/sample-id/report?onlyMismatches=true&minSeverity=INFO",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows", "sample-id", "report" ],
+            "query" : [ {
+              "key" : "onlyMismatches",
+              "value" : true
+            }, {
+              "key" : "minSeverity",
+              "value" : "INFO"
+            } ]
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"shadowId\" : \"046b6c7f-0b8a-43b9-b35d-6489e6daee91\",\n  \"verdict\" : \"REVIEW_NEEDED\",\n  \"confidence\" : 0.89,\n  \"generatedAt\" : 948603367000,\n  \"summary\" : {\n    \"criticalMismatches\" : 3,\n    \"totalRequestsMirrored\" : 428500,\n    \"uniqueEndpointsAffected\" : 7,\n    \"mismatchRatePct\" : 0.28,\n    \"warningMismatches\" : 42,\n    \"totalMismatches\" : 1204,\n    \"infoMismatches\" : 1159\n  },\n  \"mismatches\" : [ {\n    \"severity\" : \"CRITICAL\",\n    \"sampleCount\" : 42,\n    \"recommendedAction\" : \"Add null-safety check in DiscountService OR send campaignId header.\",\n    \"path\" : \"/api/v1/charge\",\n    \"differenceType\" : \"STATUS_CODE_CHANGED\",\n    \"method\" : \"POST\",\n    \"mismatchId\" : \"b1a2c3d4-e5f6-7890-1234-567890abcdef\",\n    \"probableCause\" : \"Null discount_code when request lacks campaignId header; NPE in DiscountService.apply().\",\n    \"baselineResponse\" : {\n      \"bodyPreview\" : \"{\\\"status\\\":\\\"approved\\\",\\\"txnId\\\":\\\"abc123\\\"}\",\n      \"statusCode\" : 200\n    },\n    \"shadowResponse\" : {\n      \"bodyPreview\" : \"{\\\"error\\\":\\\"NullPointerException in DiscountService\\\"}\",\n      \"statusCode\" : 500\n    },\n    \"firstSeenAt\" : 948603367000\n  }, {\n    \"severity\" : \"CRITICAL\",\n    \"sampleCount\" : 42,\n    \"recommendedAction\" : \"Add null-safety check in DiscountService OR send campaignId header.\",\n    \"path\" : \"/api/v1/charge\",\n    \"differenceType\" : \"STATUS_CODE_CHANGED\",\n    \"method\" : \"POST\",\n    \"mismatchId\" : \"b1a2c3d4-e5f6-7890-1234-567890abcdef\",\n    \"probableCause\" : \"Null discount_code when request lacks campaignId header; NPE in DiscountService.apply().\",\n    \"baselineResponse\" : {\n      \"bodyPreview\" : \"{\\\"status\\\":\\\"approved\\\",\\\"txnId\\\":\\\"abc123\\\"}\",\n      \"statusCode\" : 200\n    },\n    \"shadowResponse\" : {\n      \"bodyPreview\" : \"{\\\"error\\\":\\\"NullPointerException in DiscountService\\\"}\",\n      \"statusCode\" : 500\n    },\n    \"firstSeenAt\" : 948603367000\n  } ],\n  \"regressionRisks\" : [ \"Discount calculation returns NPE for 42 requests without campaignId.\", \"Response payload for /refund missing 'refundId' field on 12% of samples.\" ]\n}"
+      }, {
+        "name" : "Not Found",
+        "originalRequest" : {
+          "method" : "GET",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows/sample-id/report?onlyMismatches=true&minSeverity=INFO",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows", "sample-id", "report" ],
+            "query" : [ {
+              "key" : "onlyMismatches",
+              "value" : true
+            }, {
+              "key" : "minSeverity",
+              "value" : "INFO"
+            } ]
+          }
+        },
+        "status" : "Not Found",
+        "code" : 404,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.527919577Z\",\n  \"status\" : 404,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+      } ]
+    }, {
+      "name" : "Stop a shadow session and detach mirror",
+      "request" : {
+        "method" : "POST",
+        "header" : [ {
+          "key" : "Authorization",
+          "value" : "Bearer {{bearerToken}}"
+        }, {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        }, {
+          "key" : "Accept",
+          "value" : "application/json"
+        } ],
+        "url" : {
+          "raw" : "{{baseUrl}}/shadows/sample-id/stop",
+          "host" : [ "{{baseUrl}}" ],
+          "path" : [ "shadows", "sample-id", "stop" ]
+        },
+        "body" : {
+          "mode" : "raw",
+          "raw" : "{\n  \"reason\" : \"Sufficient samples collected; ready to review report.\",\n  \"generateReport\" : true\n}",
+          "options" : {
+            "raw" : {
+              "language" : "json"
+            }
+          }
+        }
+      },
+      "response" : [ {
+        "name" : "OK",
+        "originalRequest" : {
+          "method" : "POST",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Content-Type",
+            "value" : "application/json"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows/sample-id/stop",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows", "sample-id", "stop" ]
+          },
+          "body" : {
+            "mode" : "raw",
+            "raw" : "{\n  \"reason\" : \"Sufficient samples collected; ready to review report.\",\n  \"generateReport\" : true\n}",
+            "options" : {
+              "raw" : {
+                "language" : "json"
+              }
+            }
+          }
+        },
+        "status" : "OK",
+        "code" : 200,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"shadowId\" : \"9c8f1a3b-6d7e-4a12-8f5e-123456789abc\",\n  \"serviceName\" : \"payment-processor\",\n  \"environment\" : \"PRODUCTION\",\n  \"shadowVersion\" : \"v2.5.0\",\n  \"baselineVersion\" : \"v2.4.1\",\n  \"mirrorPercent\" : 10,\n  \"status\" : \"MIRRORING\",\n  \"startedAt\" : 948603367000,\n  \"scheduledEndAt\" : 948603367000,\n  \"endedAt\" : 948603367000,\n  \"progressPercent\" : 45,\n  \"liveMetrics\" : {\n    \"requestsMirrored\" : 128450,\n    \"baselineErrorRatePct\" : 0.38,\n    \"latencyDeltaPct\" : 6.5,\n    \"baselineP99LatencyMs\" : 230,\n    \"shadowErrorRatePct\" : 0.42,\n    \"mismatchRatePct\" : 0.27,\n    \"shadowP99LatencyMs\" : 245,\n    \"requestsMismatched\" : 342\n  },\n  \"preliminaryVerdict\" : \"SAFE_TO_PROCEED\",\n  \"errorMessage\" : \"errorMessage\"\n}"
+      }, {
+        "name" : "Bad Request",
+        "originalRequest" : {
+          "method" : "POST",
+          "header" : [ {
+            "key" : "Authorization",
+            "value" : "Bearer {{bearerToken}}"
+          }, {
+            "key" : "Content-Type",
+            "value" : "application/json"
+          }, {
+            "key" : "Accept",
+            "value" : "application/json"
+          } ],
+          "url" : {
+            "raw" : "{{baseUrl}}/shadows/sample-id/stop",
+            "host" : [ "{{baseUrl}}" ],
+            "path" : [ "shadows", "sample-id", "stop" ]
+          },
+          "body" : {
+            "mode" : "raw",
+            "raw" : "{\n  \"reason\" : \"Sufficient samples collected; ready to review report.\",\n  \"generateReport\" : true\n}",
+            "options" : {
+              "raw" : {
+                "language" : "json"
+              }
+            }
+          }
+        },
+        "status" : "Bad Request",
+        "code" : 400,
+        "_postman_previewlanguage" : "json",
+        "header" : [ {
+          "key" : "Content-Type",
+          "value" : "application/json"
+        } ],
+        "cookie" : [ ],
+        "body" : "{\n  \"timestamp\" : \"2026-09-27T01:32:51.528199913Z\",\n  \"status\" : 400,\n  \"code\" : \"request_failed\",\n  \"userMessage\" : \"Request failed\",\n  \"systemMessage\" : \"Sample error for documentation purposes\",\n  \"path\" : \"{{baseUrl}}\",\n  \"correlationId\" : \"sample-correlation-id\"\n}"
+      } ]
+    } ]
+  } ]
+}
