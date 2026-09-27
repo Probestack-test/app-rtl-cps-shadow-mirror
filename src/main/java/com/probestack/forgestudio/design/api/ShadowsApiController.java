@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import com.probestack.forgestudio.design.service.ShadowsService;
 import com.probestack.forgestudio.design.validation.GeneratedRequestValidator;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T04:04:28.619669137Z[GMT]")
 @Controller
 @RequestMapping("${openapi.shadowMirror.base-path:/v1}")
 public class ShadowsApiController implements ShadowsApi {
