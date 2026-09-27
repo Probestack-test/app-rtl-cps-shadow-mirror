@@ -24,7 +24,7 @@ import jakarta.annotation.Generated;
 /**
  * ShadowReport
  */
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T01:32:49.939550536Z[GMT]")public class ShadowReport {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")public class ShadowReport {
 
   private UUID shadowId;
 

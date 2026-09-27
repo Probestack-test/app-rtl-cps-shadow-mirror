@@ -14,7 +14,7 @@ import jakarta.annotation.Generated;
  * ShadowReportMismatchesInnerBaselineResponse
  */
 @JsonTypeName("ShadowReport_mismatches_inner_baselineResponse")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T01:32:49.939550536Z[GMT]")public class ShadowReportMismatchesInnerBaselineResponse {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")public class ShadowReportMismatchesInnerBaselineResponse {
 
   private Integer statusCode;
 
