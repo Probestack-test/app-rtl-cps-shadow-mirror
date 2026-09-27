@@ -15,7 +15,7 @@ import jakarta.annotation.Generated;
  */
 @Schema(name = "ShadowSession_liveMetrics", description = "Real-time mirror statistics.")
 @JsonTypeName("ShadowSession_liveMetrics")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")public class ShadowSessionLiveMetrics {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T04:04:28.619669137Z[GMT]")public class ShadowSessionLiveMetrics {
 
   private Integer requestsMirrored;
 

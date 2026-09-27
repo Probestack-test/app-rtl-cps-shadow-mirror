@@ -14,7 +14,7 @@ import jakarta.annotation.Generated;
  * ShadowReportSummary
  */
 @JsonTypeName("ShadowReport_summary")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")public class ShadowReportSummary {
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T04:04:28.619669137Z[GMT]")public class ShadowReportSummary {
 
   private Integer totalRequestsMirrored;
 

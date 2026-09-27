@@ -31,7 +31,7 @@ import jakarta.validation.constraints.*;
 import java.util.Optional;
 import jakarta.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T02:19:23.993884578Z[GMT]")@Validated
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-09-27T04:04:28.619669137Z[GMT]")@Validated
 @Tag(name = "Shadows", description = "Start, monitor, and analyze shadow traffic sessions.")
 public interface ShadowsApi {
 

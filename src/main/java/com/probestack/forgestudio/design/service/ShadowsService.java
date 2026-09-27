@@ -326,4 +326,27 @@ public class ShadowsService {
         // 
         return response;
     }
+
+    /**
+     * Maps StopShadowSessionRequest entity to ShadowReport response DTO.
+     *
+     * <p>Uses Spring BeanUtils.copyProperties() to automatically copy matching fields.</p>
+     *
+     * @param entity the entity to map
+     * @return mapped response DTO
+     */
+    private ShadowReport mapToShadowReport(StopShadowSessionRequest entity) {
+        // Create new response object
+        ShadowReport response = new ShadowReport();
+        // Copy matching properties from entity to response
+        BeanUtils.copyProperties(entity, response);
+        copyGeneratedId(entity, response);
+        // 
+        // TODO: Add custom field mappings here if needed
+        // Example:
+        //   response.setCustomField(entity.getSourceField());
+        //   response.setMessage("Success");
+        // 
+        return response;
+    }
 }
