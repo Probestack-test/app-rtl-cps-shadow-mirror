@@ -1,0 +1,50 @@
+name: "Build and Deploy Microservice - K8s"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+      - "release"
+      - "feature-adarsha"
+    paths-ignore:
+      - "docs/**"
+      - "testing/**"
+      - "**/*.md"
+      - ".gitignore"
+  pull_request:
+    branches:
+      - "main"
+      - "release"
+
+concurrency:
+  group: microservice-shadow-mirror-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy-microservice:
+    uses: ForgeCrux/pipeline-template/.github/workflows/microservices.yaml@main
+
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      service_name: "shadow-mirror"
+      k8s_namespace: "shadow-mirror"
+      k8s_cluster: "probestack-k8s-prod"
+      deploy_strategy: "helm"
+      dockerfile_path: "./Dockerfile"
+      helm_chart_path: "./charts/shadow-mirror"
+      replica_count: "2"
+      health_check_path: "/actuator/health"
+      health_check_timeout: "180"
+      branch_name: ${{ github.ref_name }}
+    secrets:
+      cicd_profile_id: ${{ secrets.CICD_PROFILE_ID }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+      PROB_SERVICE_TOKEN_URL: ${{ secrets.PROB_SERVICE_TOKEN_URL }}
+      PROB_SERVICE_TOKEN_CLIENT_ID: ${{ secrets.PROB_SERVICE_TOKEN_CLIENT_ID }}
+      PROB_SERVICE_TOKEN_CLIENT_SECRET: ${{ secrets.PROB_SERVICE_TOKEN_CLIENT_SECRET }}
+      PROB_SERVICE_TOKEN_TENANT_ID: ${{ secrets.PROB_SERVICE_TOKEN_TENANT_ID }}
